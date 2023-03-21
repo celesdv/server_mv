@@ -1,0 +1,43 @@
+import { DataTypes } from "sequelize";
+import sequelize from "../db/connection";
+import { Booking } from "./booking";
+import { Client } from "./client";
+import { Count } from "./count";
+import { User } from "./user";
+
+export const Income = sequelize.define("income", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  total: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
+  detail: DataTypes.STRING,
+  soft_delete: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+});
+Income.belongsTo(Booking, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Income.belongsTo(User, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Income.belongsTo(Count, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Income.belongsTo(Client, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
