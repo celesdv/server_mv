@@ -28,11 +28,11 @@ export const Assistance = sequelize.define("assistance", {
     defaultValue: false,
   },
 });
-Assistance.belongsTo(Budget, {
-  foreignKey: {
-    allowNull: false,
-  },
-});
+// Assistance.belongsTo(Budget, {
+//   foreignKey: {
+//     allowNull: false,
+//   },
+// });
 Assistance.belongsTo(Supplier, {
   foreignKey: {
     allowNull: false,

@@ -25,11 +25,11 @@ export const Canned = sequelize.define("canned", {
     defaultValue: false,
   },
 });
-Canned.belongsTo(Budget, {
-  foreignKey: {
-    allowNull: false,
-  },
-});
+// Canned.belongsTo(Budget, {
+//   foreignKey: {
+//     allowNull: false,
+//   },
+// });
 Canned.belongsTo(Supplier, {
   foreignKey: {
     allowNull: false,

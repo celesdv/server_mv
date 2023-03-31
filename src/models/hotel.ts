@@ -15,7 +15,7 @@ export const Hotel = sequelize.define("hotel", {
   },
   regime: DataTypes.STRING,
   nights: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   rooms: {
@@ -37,11 +37,11 @@ export const Hotel = sequelize.define("hotel", {
     defaultValue: false,
   },
 });
-Hotel.belongsTo(Budget, {
-  foreignKey: {
-    allowNull: false,
-  },
-});
+// Hotel.belongsTo(Budget, {
+//   foreignKey: {
+//     allowNull: false,
+//   },
+// });
 Hotel.belongsTo(Supplier, {
   foreignKey: {
     allowNull: false,

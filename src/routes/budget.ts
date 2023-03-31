@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { create, getById, getClients, softDelete, update } from "../controllers/client";
+import { create, getById, getBudgets, softDelete, update } from "../controllers/budget";
 import { validateToken } from "./validations";
 
 const router = Router();
 
-router.get("/", validateToken, getClients);
+router.get("/", validateToken, getBudgets);
 router.get('/:id', validateToken, getById);
 router.delete('/:id', validateToken, softDelete);
 router.post('/', validateToken, create );

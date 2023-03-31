@@ -33,11 +33,11 @@ export const Flight = sequelize.define("flight", {
     defaultValue: false,
   },
 });
-Flight.belongsTo(Budget, {
-  foreignKey: {
-    allowNull: false,
-  },
-});
+// Flight.belongsTo(Budget, {
+//   foreignKey: {
+//     allowNull: false,
+//   },
+// });
 Flight.belongsTo(Supplier, {
   foreignKey: {
     allowNull: false,

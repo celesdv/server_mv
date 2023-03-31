@@ -1,22 +1,23 @@
 import { Request, Response } from "express";
-import { Client } from "../models/client";
+import { Count } from "../models/count";
 
-export const getClients = async (req: Request, res: Response) => {
-  const listClients = await Client.findAll({ where: { soft_delete: false } });
-  res.json(listClients);
+export const getCounts = async (req: Request, res: Response) => {
+  const listCounts = await Count.findAll({ where: { soft_delete: false } });
+  res.json(listCounts);
 };
 
 export const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const client = await Client.findOne({
+
+  const count = await Count.findOne({
     where: { id: id, soft_delete: false },
   });
 
-  if (client) {
-    res.json(client);
+  if (count) {
+    res.json(count);
   } else {
     res.status(404).json({
-      msg: `No existe un cliente con el id ${id}`,
+      msg: `No existe una cuenta con el id ${id}`,
     });
   }
 };
@@ -25,10 +26,10 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    await Client.create(body);
+    await Count.create(body);
 
     res.json({
-      msg: `El cliente fue agregado con exito!`,
+      msg: `La cuenta fue agregada con exito!`,
     });
   } catch (error) {
     console.log(error);
@@ -43,24 +44,23 @@ export const update = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-
-    const client = await Client.findOne({
+    const count = await Count.findOne({
       where: { id: id, soft_delete: false },
     });
 
-    if (client) {
-      await client.update(body);
+    if (count) {
+      await count.update(body);
       res.json({
-        msg: "El cliente fue actualizado con exito",
+        msg: "La cuenta fue actualizada con exito",
       });
     } else {
       res.status(404).json({
-        msg: `No existe un cliente con el id ${id}`,
+        msg: `No existe una cuenta con el id ${id}`,
       });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    res.json({
       msg: `Upps ocurrio un error, comuniquese con soporte`,
     });
   }
@@ -68,18 +68,18 @@ export const update = async (req: Request, res: Response) => {
 
 export const softDelete = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const client = await Client.findOne({
+  const count = await Count.findOne({
     where: { id: id, soft_delete: false },
   });
 
-  if (!client) {
+  if (!count) {
     res.status(404).json({
-      msg: `No existe un cliente con el id ${id}`,
+      msg: `No existe una cuenta con el id ${id}`,
     });
   } else {
-    await client.update({ soft_delete: true });
+    await count.update({ soft_delete: true });
     res.json({
-      msg: "El cliente fue eliminado con exito!",
+      msg: "La cuenta fue eliminada con exito!",
     });
   }
 };

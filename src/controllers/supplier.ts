@@ -1,22 +1,25 @@
 import { Request, Response } from "express";
-import { Client } from "../models/client";
+import { Supplier } from "../models/supplier";
 
-export const getClients = async (req: Request, res: Response) => {
-  const listClients = await Client.findAll({ where: { soft_delete: false } });
-  res.json(listClients);
+export const getSuppliers = async (req: Request, res: Response) => {
+  const listSuppliers = await Supplier.findAll({
+    where: { soft_delete: false },
+  });
+  res.json(listSuppliers);
 };
 
 export const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const client = await Client.findOne({
+
+  const supplier = await Supplier.findOne({
     where: { id: id, soft_delete: false },
   });
 
-  if (client) {
-    res.json(client);
+  if (supplier) {
+    res.json(supplier);
   } else {
     res.status(404).json({
-      msg: `No existe un cliente con el id ${id}`,
+      msg: `No existe un provedor con el id ${id}`,
     });
   }
 };
@@ -24,11 +27,19 @@ export const getById = async (req: Request, res: Response) => {
 export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
+  const supplier = await Supplier.findOne({ where: { name: body.name } });
+
+  if (supplier) {
+    return res.status(400).json({
+      msg: `¡El proveedor ${body.name} ya existe!`,
+    });
+  }
+
   try {
-    await Client.create(body);
+    await Supplier.create(body);
 
     res.json({
-      msg: `El cliente fue agregado con exito!`,
+      msg: `El proveedor fue agregado con exito!`,
     });
   } catch (error) {
     console.log(error);
@@ -43,19 +54,18 @@ export const update = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-
-    const client = await Client.findOne({
+    const supplier = await Supplier.findOne({
       where: { id: id, soft_delete: false },
     });
 
-    if (client) {
-      await client.update(body);
+    if (supplier) {
+      await supplier.update(body);
       res.json({
-        msg: "El cliente fue actualizado con exito",
+        msg: "El proveedor fue actualizado con exito",
       });
     } else {
       res.status(404).json({
-        msg: `No existe un cliente con el id ${id}`,
+        msg: `No existe un proveedor con el id ${id}`,
       });
     }
   } catch (error) {
@@ -68,18 +78,18 @@ export const update = async (req: Request, res: Response) => {
 
 export const softDelete = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const client = await Client.findOne({
+  const supplier = await Supplier.findOne({
     where: { id: id, soft_delete: false },
   });
 
-  if (!client) {
+  if (!supplier) {
     res.status(404).json({
-      msg: `No existe un cliente con el id ${id}`,
+      msg: `No existe un proveedor con el id ${id}`,
     });
   } else {
-    await client.update({ soft_delete: true });
+    await supplier.update({ soft_delete: true });
     res.json({
-      msg: "El cliente fue eliminado con exito!",
+      msg: "El proveedor fue eliminado con exito!",
     });
   }
 };

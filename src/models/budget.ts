@@ -1,6 +1,12 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
+import { Assistance } from "./assistance";
+import { Canned } from "./canned";
+import { Excursion } from "./excursion";
+import { Flight } from "./flight";
+import { Hotel } from "./hotel";
 import { Order } from "./order";
+import { Transfer } from "./transfer";
 
 export const Budget = sequelize.define("budget", {
   id: {
@@ -16,6 +22,36 @@ export const Budget = sequelize.define("budget", {
   },
 });
 Budget.belongsTo(Order, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Budget.hasMany(Flight, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Budget.hasMany(Hotel, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Budget.hasMany(Canned, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Budget.hasMany(Excursion, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Budget.hasMany(Transfer, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Budget.hasMany(Assistance, {
   foreignKey: {
     allowNull: false,
   },

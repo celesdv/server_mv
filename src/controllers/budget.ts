@@ -1,22 +1,27 @@
 import { Request, Response } from "express";
-import { Client } from "../models/client";
+import { Budget } from "../models/budget";
+import { Hotel } from "../models/hotel";
 
-export const getClients = async (req: Request, res: Response) => {
-  const listClients = await Client.findAll({ where: { soft_delete: false } });
-  res.json(listClients);
+export const getBudgets = async (req: Request, res: Response) => {
+  const listBudgets = await Budget.findAll({
+    where: { soft_delete: false },
+    include: { all: true },
+  });
+  res.json(listBudgets);
 };
 
 export const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const client = await Client.findOne({
+  const budget = await Budget.findOne({
     where: { id: id, soft_delete: false },
+    include: { all: true },
   });
 
-  if (client) {
-    res.json(client);
+  if (budget) {
+    res.json(budget);
   } else {
     res.status(404).json({
-      msg: `No existe un cliente con el id ${id}`,
+      msg: `No existe un presupuesto con el id ${id}`,
     });
   }
 };
@@ -25,11 +30,9 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    await Client.create(body);
+    const budget = await Budget.create(body);
 
-    res.json({
-      msg: `El cliente fue agregado con exito!`,
-    });
+    res.json(budget);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -44,18 +47,18 @@ export const update = async (req: Request, res: Response) => {
 
   try {
 
-    const client = await Client.findOne({
+    const budget = await Budget.findOne({
       where: { id: id, soft_delete: false },
     });
 
-    if (client) {
-      await client.update(body);
+    if (budget) {
+      await budget.update(body);
       res.json({
-        msg: "El cliente fue actualizado con exito",
+        msg: "El presupuesto fue actualizado con exito",
       });
     } else {
       res.status(404).json({
-        msg: `No existe un cliente con el id ${id}`,
+        msg: `No existe un presupuesto con el id ${id}`,
       });
     }
   } catch (error) {
@@ -68,18 +71,18 @@ export const update = async (req: Request, res: Response) => {
 
 export const softDelete = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const client = await Client.findOne({
+  const budget = await Budget.findOne({
     where: { id: id, soft_delete: false },
   });
 
-  if (!client) {
+  if (!budget) {
     res.status(404).json({
-      msg: `No existe un cliente con el id ${id}`,
+      msg: `No existe un presupuesto con el id ${id}`,
     });
   } else {
-    await client.update({ soft_delete: true });
+    await budget.update({ soft_delete: true });
     res.json({
-      msg: "El cliente fue eliminado con exito!",
+      msg: "El presupuesto fue eliminado con exito!",
     });
   }
 };

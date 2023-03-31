@@ -1,7 +1,14 @@
 import express from "express";
 import cors from "cors";
+
 import clientsRouter from "../routes/client";
 import usersRouter from "../routes/user";
+import countsRouter from "../routes/count"
+import suppliersRouter from "../routes/supplier"
+import organizationRouter from "../routes/organization"
+import orderRouter from "../routes/order"
+import budgetRouter from "../routes/budget"
+
 import {
   createAdmin,
   createOrganization,
@@ -24,7 +31,7 @@ import { Transfer } from "./transfer";
 import { Booking } from "./booking";
 import { Pax } from "./pax";
 import { Income } from "./income";
-import { Outcome } from "./outome";
+import { Outcome } from "./outcome";
 
 class Server {
   private app: express.Application;
@@ -48,6 +55,11 @@ class Server {
   routes() {
     this.app.use("/api/clients", clientsRouter);
     this.app.use("/api/users", usersRouter);
+    this.app.use("/api/counts", countsRouter);
+    this.app.use("/api/suppliers", suppliersRouter);
+    this.app.use("/api/organization", organizationRouter);
+    this.app.use("/api/orders", orderRouter);
+    this.app.use("/api/budgets", budgetRouter);
   }
 
   middleware() {

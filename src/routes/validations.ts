@@ -15,12 +15,12 @@ export const validateToken = (
       next();
     } catch (error) {
       res.status(403).json({
-        msg: `Invalid Token`,
+        msg: `Token invalido`,
       });
     }
   } else {
     res.status(401).json({
-      msg: `Unauthorized`,
+      msg: `No posee Autorización`,
     });
   }
 };
@@ -38,18 +38,18 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
 
       if (data.roleId != 1)
         return res.status(401).json({
-          msg: `Unauthorized`,
+          msg: `No posee Autorización`,
         });
         
       next();
     } catch (error) {
       res.status(403).json({
-        msg: `Invalid Token`,
+        msg: `Token invalido`,
       });
     }
   } else {
     res.status(401).json({
-      msg: `Unauthorized`,
+      msg: `No posee Autorización`,
     });
   }
 };
