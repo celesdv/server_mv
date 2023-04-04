@@ -33,11 +33,6 @@ export const Transfer = sequelize.define("transfer", {
     defaultValue: false,
   },
 });
-// Transfer.belongsTo(Budget, {
-//   foreignKey: {
-//     allowNull: false,
-//   },
-// });
 Transfer.belongsTo(Supplier, {
   foreignKey: {
     allowNull: false,

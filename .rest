@@ -1,0 +1,27 @@
+
+POST http://localhost:3000/api/users/login HTTP/1.1
+content-type: application/json
+
+{
+    "email":"celesdv@gmail.com",
+    "password":"123456"
+}
+
+###
+
+POST http://localhost:3000/api/flights HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoxLCJmaXJzdF9uYW1lIjoiQ2VsZXN0ZSIsImxhc3RfbmFtZSI6IkQgQW5nZWxvIiwiaWF0IjoxNjgwNTU5MTQyLCJleHAiOjE2ODA2NDU1NDJ9.1Ntr8gz3CKWBkTLftRc7cRMrc2gv6YH2oiPgCgMu1Lo
+
+{
+  "origin": "Mendoza",
+  "destination": "Cancun",
+  "date": "Enero 2023",
+  "value": 1500,
+  "budgetId": 1,
+  "supplierId": 1,
+  "section":  [
+    { "name": "mdz - aep"},
+    { "name": "aep - mdz"}
+  ]
+}

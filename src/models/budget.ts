@@ -7,6 +7,7 @@ import { Flight } from "./flight";
 import { Hotel } from "./hotel";
 import { Order } from "./order";
 import { Transfer } from "./transfer";
+import { Accommodation } from "./accommodation";
 
 export const Budget = sequelize.define("budget", {
   id: {
@@ -31,7 +32,7 @@ Budget.hasMany(Flight, {
     allowNull: false,
   },
 });
-Budget.hasMany(Hotel, {
+Budget.hasMany(Accommodation, {
   foreignKey: {
     allowNull: false,
   },

@@ -25,11 +25,6 @@ export const Excursion = sequelize.define("excursion", {
     defaultValue: false,
   },
 });
-// Excursion.belongsTo(Budget, {
-//   foreignKey: {
-//     allowNull: false,
-//   },
-// });
 Excursion.belongsTo(Supplier, {
   foreignKey: {
     allowNull: false,

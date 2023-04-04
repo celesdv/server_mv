@@ -8,6 +8,7 @@ import suppliersRouter from "../routes/supplier"
 import organizationRouter from "../routes/organization"
 import orderRouter from "../routes/order"
 import budgetRouter from "../routes/budget"
+import flightRouter from "../routes/flight"
 
 import {
   createAdmin,
@@ -32,6 +33,9 @@ import { Booking } from "./booking";
 import { Pax } from "./pax";
 import { Income } from "./income";
 import { Outcome } from "./outcome";
+import { Section } from "./section";
+import { Accommodation } from "./accommodation";
+import { Extra } from "./extra";
 
 class Server {
   private app: express.Application;
@@ -60,6 +64,7 @@ class Server {
     this.app.use("/api/organization", organizationRouter);
     this.app.use("/api/orders", orderRouter);
     this.app.use("/api/budgets", budgetRouter);
+    this.app.use("/api/flights", flightRouter);
   }
 
   middleware() {
@@ -77,13 +82,16 @@ class Server {
       await Count.sync();
       await Supplier.sync();
       await Order.sync();
-      await Budget.sync();
-      await Assistance.sync();
-      await Canned.sync();
-      await Excursion.sync();
-      await Flight.sync();
-      await Hotel.sync();
-      await Transfer.sync();
+      await Budget.sync({ alter: true });
+      await Assistance.sync({ alter: true });
+      await Canned.sync({ alter: true });
+      await Excursion.sync({ alter: true });
+      await Flight.sync({ alter: true });
+      await Section.sync({ alter: true })
+      await Accommodation.sync({ alter: true })
+      await Hotel.sync({ alter: true });
+      await Extra.sync({ alter: true })
+      await Transfer.sync({ alter: true });
       await Booking.sync();
       await Pax.sync();
       await Income.sync();

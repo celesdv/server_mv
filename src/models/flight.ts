@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
 import { Budget } from "./budget";
 import { Supplier } from "./supplier";
+import { Section } from "./section";
 
 export const Flight = sequelize.define("flight", {
   id: {
@@ -33,13 +34,13 @@ export const Flight = sequelize.define("flight", {
     defaultValue: false,
   },
 });
-// Flight.belongsTo(Budget, {
-//   foreignKey: {
-//     allowNull: false,
-//   },
-// });
 Flight.belongsTo(Supplier, {
   foreignKey: {
     allowNull: false,
   },
 });
+Flight.hasMany(Section, {
+  foreignKey: {
+    allowNull: false,
+  },
+})
