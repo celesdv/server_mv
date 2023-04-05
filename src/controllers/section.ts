@@ -1,43 +1,42 @@
 import { Request, Response } from "express";
-import { Flight } from "../models/flight";
 import { Section } from "../models/section";
 
-export const getFlights = async (req: Request, res: Response) => {
-  const listFlights = await Flight.findAll({
+export const getSections = async (req: Request, res: Response) => {
+  const listSections = await Section.findAll({
     where: { soft_delete: false },
     include: { all: true },
   });
-  res.json(listFlights);
+  res.json(listSections);
 };
 
 export const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const flight = await Flight.findOne({
+  const section = await Section.findOne({
     where: { id: id, soft_delete: false },
     include: { all: true },
   });
 
-  if (flight) {
-    res.json(flight);
+  if (section) {
+    res.json(section);
   } else {
     res.status(404).json({
-      msg: `No existe un servicio áereo con el id ${id}`,
+      msg: `No existe un tramo con el id ${id}`,
     });
   }
 };
 
-export const getByBudget = async (req: Request, res: Response) => {
+export const getByFlight = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const listFlights = await Flight.findAll({
-    where: { budgetId: id, soft_delete: false },
+  const listSections = await Section.findAll({
+    where: { flightId: id, soft_delete: false },
     include: { all: true },
   });
 
-  if (listFlights) {
-    res.json(listFlights);
+  if (listSections) {
+    res.json(listSections);
   } else {
     res.status(404).json({
-      msg: `No existen servicios áereo en el presupuesto con el id ${id}`,
+      msg: `No existen tramos en el servicio áereo con el id ${id}`,
     });
   }
 };
@@ -46,12 +45,10 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    await Flight.create(body, {
-      include: [Section],
-    });
+    await Section.create(body);
 
     res.json({
-      msg: `El servicio aéreo fue agregado con exito!`,
+      msg: `El tramo fue agregado con exito!`,
     });
   } catch (error) {
     console.log(error);
@@ -66,18 +63,18 @@ export const update = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const flight = await Flight.findOne({
+    const section = await Section.findOne({
       where: { id: id, soft_delete: false },
     });
 
-    if (flight) {
-      await flight.update(body);
+    if (section) {
+      await section.update(body);
       res.json({
-        msg: "El servicio áereo fue actualizado con exito",
+        msg: "El tramo fue actualizado con exito",
       });
     } else {
       res.status(404).json({
-        msg: `No existe un servicio áereo con el id ${id}`,
+        msg: `No existe un tramo con el id ${id}`,
       });
     }
   } catch (error) {
@@ -90,18 +87,18 @@ export const update = async (req: Request, res: Response) => {
 
 export const softDelete = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const flight = await Flight.findOne({
+  const section = await Section.findOne({
     where: { id: id, soft_delete: false },
   });
 
-  if (!flight) {
+  if (!section) {
     res.status(404).json({
-      msg: `No existe un servicio áereo con el id ${id}`,
+      msg: `No existe un tramo con el id ${id}`,
     });
   } else {
-    await flight.update({ soft_delete: true });
+    await section.update({ soft_delete: true });
     res.json({
-      msg: "El servicio áereo fue eliminado con exito!",
+      msg: "El tramo fue eliminado con exito!",
     });
   }
 };

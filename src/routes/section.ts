@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { create, getByBudget, getById, getFlights, softDelete, update } from "../controllers/flight";
+import { create, getByFlight, getById, getSections, softDelete, update } from "../controllers/section";
 import { validateToken } from "./validations";
 
 const router = Router();
 
-router.get("/", validateToken, getFlights);
+router.get("/", validateToken, getSections);
 router.get('/:id', validateToken, getById);
-router.get('/budget/:id', validateToken, getByBudget);
+router.get('/flight/:id', validateToken, getByFlight);
 router.delete('/:id', validateToken, softDelete);
 router.post('/', validateToken, create);
 router.put('/:id', validateToken, update);

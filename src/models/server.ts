@@ -9,6 +9,7 @@ import organizationRouter from "../routes/organization"
 import orderRouter from "../routes/order"
 import budgetRouter from "../routes/budget"
 import flightRouter from "../routes/flight"
+import sectionRouter from "../routes/section"
 
 import {
   createAdmin,
@@ -65,6 +66,7 @@ class Server {
     this.app.use("/api/orders", orderRouter);
     this.app.use("/api/budgets", budgetRouter);
     this.app.use("/api/flights", flightRouter);
+    this.app.use("/api/sections", sectionRouter);
   }
 
   middleware() {
@@ -82,16 +84,16 @@ class Server {
       await Count.sync();
       await Supplier.sync();
       await Order.sync();
-      await Budget.sync({ alter: true });
-      await Assistance.sync({ alter: true });
-      await Canned.sync({ alter: true });
-      await Excursion.sync({ alter: true });
-      await Flight.sync({ alter: true });
-      await Section.sync({ alter: true })
-      await Accommodation.sync({ alter: true })
-      await Hotel.sync({ alter: true });
-      await Extra.sync({ alter: true })
-      await Transfer.sync({ alter: true });
+      await Budget.sync();
+      await Assistance.sync();
+      await Canned.sync();
+      await Excursion.sync();
+      await Flight.sync();
+      await Section.sync()
+      await Accommodation.sync()
+      await Hotel.sync();
+      await Extra.sync()
+      await Transfer.sync();
       await Booking.sync();
       await Pax.sync();
       await Income.sync();
