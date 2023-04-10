@@ -84,13 +84,13 @@ class Server {
       await Count.sync();
       await Supplier.sync();
       await Order.sync();
-      await Budget.sync({ alter: true});
+      await Budget.sync();
       await Assistance.sync();
       await Canned.sync();
       await Excursion.sync();
       await Flight.sync();
       await Section.sync()
-      await Accommodation.sync({ alter: true})
+      await Accommodation.sync()
       await Hotel.sync();
       await Extra.sync()
       await Transfer.sync();
