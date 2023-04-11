@@ -3,13 +3,15 @@ import cors from "cors";
 
 import clientsRouter from "../routes/client";
 import usersRouter from "../routes/user";
-import countsRouter from "../routes/count"
-import suppliersRouter from "../routes/supplier"
-import organizationRouter from "../routes/organization"
-import orderRouter from "../routes/order"
-import budgetRouter from "../routes/budget"
-import flightRouter from "../routes/flight"
-import sectionRouter from "../routes/section"
+import countsRouter from "../routes/count";
+import suppliersRouter from "../routes/supplier";
+import organizationRouter from "../routes/organization";
+import orderRouter from "../routes/order";
+import budgetRouter from "../routes/budget";
+import flightRouter from "../routes/flight";
+import sectionRouter from "../routes/section";
+import transferRouter from "../routes/transfer";
+import assistanceRouter from "../routes/assistance";
 
 import {
   createAdmin,
@@ -67,6 +69,8 @@ class Server {
     this.app.use("/api/budgets", budgetRouter);
     this.app.use("/api/flights", flightRouter);
     this.app.use("/api/sections", sectionRouter);
+    this.app.use("/api/transfers", transferRouter);
+    this.app.use("/api/assistances", assistanceRouter);
   }
 
   middleware() {
@@ -89,10 +93,10 @@ class Server {
       await Canned.sync();
       await Excursion.sync();
       await Flight.sync();
-      await Section.sync()
-      await Accommodation.sync()
+      await Section.sync();
+      await Accommodation.sync();
       await Hotel.sync();
-      await Extra.sync()
+      await Extra.sync();
       await Transfer.sync();
       await Booking.sync();
       await Pax.sync();
