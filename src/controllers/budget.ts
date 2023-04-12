@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Budget } from "../models/budget";
 import { Hotel } from "../models/hotel";
+import { Op } from "sequelize";
 
 export const getBudgets = async (req: Request, res: Response) => {
   const listBudgets = await Budget.findAll({
@@ -46,7 +47,6 @@ export const update = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-
     const budget = await Budget.findOne({
       where: { id: id, soft_delete: false },
     });
