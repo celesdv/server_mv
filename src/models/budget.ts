@@ -8,6 +8,7 @@ import { Hotel } from "./hotel";
 import { Order } from "./order";
 import { Transfer } from "./transfer";
 import { Accommodation } from "./accommodation";
+import { Item } from "./item";
 
 export const Budget = sequelize.define("budget", {
   id: {
@@ -53,6 +54,11 @@ Budget.hasMany(Transfer, {
   },
 });
 Budget.hasMany(Assistance, {
+  foreignKey: {
+    allowNull: false,
+  },
+});
+Budget.hasMany(Item, {
   foreignKey: {
     allowNull: false,
   },

@@ -13,7 +13,8 @@ import sectionRouter from "../routes/section";
 import transferRouter from "../routes/transfer";
 import assistanceRouter from "../routes/assistance";
 import excursionRouter from "../routes/excursion";
-import cannedRouter from "../routes/canned"
+import cannedRouter from "../routes/canned";
+import itemRouter from "../routes/item";
 
 import {
   createAdmin,
@@ -41,6 +42,7 @@ import { Outcome } from "./outcome";
 import { Section } from "./section";
 import { Accommodation } from "./accommodation";
 import { Extra } from "./extra";
+import { Item } from "./item";
 
 class Server {
   private app: express.Application;
@@ -75,6 +77,7 @@ class Server {
     this.app.use("/api/assistances", assistanceRouter);
     this.app.use("/api/excursions", excursionRouter);
     this.app.use("/api/canneds", cannedRouter);
+    this.app.use("/api/items", itemRouter);
   }
 
   middleware() {
@@ -97,6 +100,7 @@ class Server {
       await Canned.sync();
       await Excursion.sync();
       await Flight.sync();
+      await Item.sync();
       await Section.sync();
       await Accommodation.sync();
       await Hotel.sync();
