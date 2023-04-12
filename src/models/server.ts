@@ -13,6 +13,7 @@ import sectionRouter from "../routes/section";
 import transferRouter from "../routes/transfer";
 import assistanceRouter from "../routes/assistance";
 import excursionRouter from "../routes/excursion";
+import cannedRouter from "../routes/canned"
 
 import {
   createAdmin,
@@ -73,6 +74,7 @@ class Server {
     this.app.use("/api/transfers", transferRouter);
     this.app.use("/api/assistances", assistanceRouter);
     this.app.use("/api/excursions", excursionRouter);
+    this.app.use("/api/canneds", cannedRouter);
   }
 
   middleware() {

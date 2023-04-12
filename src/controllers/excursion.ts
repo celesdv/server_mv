@@ -2,15 +2,15 @@ import { Request, Response } from "express";
 import { Excursion } from "../models/excursion";
 
 export const getExcursions = async (req: Request, res: Response) => {
-    const listExcurions = await Excursion.findAll({
-        where: { soft_delete: false },
-        include: { all: true },
-      });
-      res.json(listExcurions);
+  const listExcurions = await Excursion.findAll({
+    where: { soft_delete: false },
+    include: { all: true },
+  });
+  res.json(listExcurions);
 };
 
 export const getById = async (req: Request, res: Response) => {
-    const { id } = req.params;
+  const { id } = req.params;
   const excursion = await Excursion.findOne({
     where: { id: id, soft_delete: false },
     include: { all: true },
@@ -26,13 +26,13 @@ export const getById = async (req: Request, res: Response) => {
 };
 
 export const getByBudget = async (req: Request, res: Response) => {
-    const { id } = req.params;
+  const { id } = req.params;
   const listExcursions = await Excursion.findAll({
     where: { budgetId: id, soft_delete: false },
     include: { all: true },
   });
 
-  if  (listExcursions) {
+  if (listExcursions) {
     res.json(listExcursions);
   } else {
     res.status(404).json({
@@ -42,7 +42,7 @@ export const getByBudget = async (req: Request, res: Response) => {
 };
 
 export const create = async (req: Request, res: Response) => {
-    const { body } = req;
+  const { body } = req;
 
   try {
     await Excursion.create(body);
@@ -59,7 +59,7 @@ export const create = async (req: Request, res: Response) => {
 };
 
 export const update = async (req: Request, res: Response) => {
-    const { body } = req;
+  const { body } = req;
   const { id } = req.params;
 
   try {
@@ -86,7 +86,7 @@ export const update = async (req: Request, res: Response) => {
 };
 
 export const softDelete = async (req: Request, res: Response) => {
-    const { id } = req.params;
+  const { id } = req.params;
   const excursion = await Excursion.findOne({
     where: { id: id, soft_delete: false },
   });
