@@ -1,42 +1,44 @@
 import { Request, Response } from "express";
+import { Accommodation } from "../models/accommodation";
 import { Hotel } from "../models/hotel";
+import { Extra } from "../models/extra";
 
-export const getHotels = async (req: Request, res: Response) => {
-  const listHotels = await Hotel.findAll({
+export const getAccommodations = async (req: Request, res: Response) => {
+  const listAccommodations = await Accommodation.findAll({
     where: { soft_delete: false },
     include: { all: true },
   });
-  res.json(listHotels);
+  res.json(listAccommodations);
 };
 
 export const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const hotel = await Hotel.findOne({
+  const accommodation = await Accommodation.findOne({
     where: { id: id, soft_delete: false },
     include: { all: true },
   });
 
-  if (hotel) {
-    res.json(hotel);
+  if (accommodation) {
+    res.json(accommodation);
   } else {
     res.status(404).json({
-      msg: `No existe un hotel con el id ${id}`,
+      msg: `No existe un alojamiento con el id ${id}`,
     });
   }
 };
 
-export const getByAccommodation = async (req: Request, res: Response) => {
+export const getByBudget = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const listHotels = await Hotel.findAll({
-    where: { accommodationId: id, soft_delete: false },
+  const listAccommodations = await Accommodation.findAll({
+    where: { budgetId: id, soft_delete: false },
     include: { all: true },
   });
 
-  if (listHotels) {
-    res.json(listHotels);
+  if (listAccommodations) {
+    res.json(listAccommodations);
   } else {
     res.status(404).json({
-      msg: `No existen hoteles en el alojamiento con el id ${id}`,
+      msg: `No existen alojamientos en el presupuesto con el id ${id}`,
     });
   }
 };
@@ -45,10 +47,12 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    await Hotel.create(body);
+    await Accommodation.create(body, {
+      include: [Hotel, Extra],
+    });
 
     res.json({
-      msg: `El hotel fue agregado con exito!`,
+      msg: `El alojamiento fue agregado con exito!`,
     });
   } catch (error) {
     console.log(error);
@@ -63,18 +67,18 @@ export const update = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const hotel = await Hotel.findOne({
+    const accommodation = await Accommodation.findOne({
       where: { id: id, soft_delete: false },
     });
 
-    if (hotel) {
-      await hotel.update(body);
+    if (accommodation) {
+      await accommodation.update(body)
       res.json({
-        msg: "El hotel fue actualizado con exito",
+        msg: "El alojamiento fue actualizado con exito",
       });
     } else {
       res.status(404).json({
-        msg: `No existe un hotel con el id ${id}`,
+        msg: `No existe un alojamiento con el id ${id}`,
       });
     }
   } catch (error) {
@@ -87,18 +91,18 @@ export const update = async (req: Request, res: Response) => {
 
 export const softDelete = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const hotel = await Hotel.findOne({
+  const accommodation = await Accommodation.findOne({
     where: { id: id, soft_delete: false },
   });
 
-  if (!hotel) {
+  if (!accommodation) {
     res.status(404).json({
-      msg: `No existe un hotel con el id ${id}`,
+      msg: `No existe un alojamiento con el id ${id}`,
     });
   } else {
-    await hotel.update({ soft_delete: true });
+    await accommodation.update({ soft_delete: true });
     res.json({
-      msg: "El hotel fue eliminado con exito!",
+      msg: "El alojamiento fue eliminado con exito!",
     });
   }
 };

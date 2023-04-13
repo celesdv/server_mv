@@ -15,6 +15,9 @@ import assistanceRouter from "../routes/assistance";
 import excursionRouter from "../routes/excursion";
 import cannedRouter from "../routes/canned";
 import itemRouter from "../routes/item";
+import accommodationRouter from "../routes/accommodation"
+import hotelRouter from "../routes/hotel"
+import extraRouter from "../routes/extra"
 
 import {
   createAdmin,
@@ -73,6 +76,9 @@ class Server {
     this.app.use("/api/budgets", budgetRouter);
     this.app.use("/api/flights", flightRouter);
     this.app.use("/api/sections", sectionRouter);
+    this.app.use("/api/accommodations", accommodationRouter);
+    this.app.use("/api/hotels", hotelRouter);
+    this.app.use("/api/extras", extraRouter);
     this.app.use("/api/transfers", transferRouter);
     this.app.use("/api/assistances", assistanceRouter);
     this.app.use("/api/excursions", excursionRouter);

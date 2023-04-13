@@ -1,42 +1,42 @@
 import { Request, Response } from "express";
-import { Hotel } from "../models/hotel";
+import { Extra } from "../models/extra";
 
-export const getHotels = async (req: Request, res: Response) => {
-  const listHotels = await Hotel.findAll({
+export const getExtras = async (req: Request, res: Response) => {
+  const listExtra = await Extra.findAll({
     where: { soft_delete: false },
     include: { all: true },
   });
-  res.json(listHotels);
+  res.json(listExtra);
 };
 
 export const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const hotel = await Hotel.findOne({
+  const extra = await Extra.findOne({
     where: { id: id, soft_delete: false },
     include: { all: true },
   });
 
-  if (hotel) {
-    res.json(hotel);
+  if (extra) {
+    res.json(extra);
   } else {
     res.status(404).json({
-      msg: `No existe un hotel con el id ${id}`,
+      msg: `No existe un extra con el id ${id}`,
     });
   }
 };
 
 export const getByAccommodation = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const listHotels = await Hotel.findAll({
+  const listExtras = await Extra.findAll({
     where: { accommodationId: id, soft_delete: false },
     include: { all: true },
   });
 
-  if (listHotels) {
-    res.json(listHotels);
+  if (listExtras) {
+    res.json(listExtras);
   } else {
     res.status(404).json({
-      msg: `No existen hoteles en el alojamiento con el id ${id}`,
+      msg: `No existen extras en el alojamiento con el id ${id}`,
     });
   }
 };
@@ -45,10 +45,10 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    await Hotel.create(body);
+    await Extra.create(body);
 
     res.json({
-      msg: `El hotel fue agregado con exito!`,
+      msg: `El extra fue agregado con exito!`,
     });
   } catch (error) {
     console.log(error);
@@ -63,18 +63,18 @@ export const update = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const hotel = await Hotel.findOne({
+    const extra = await Extra.findOne({
       where: { id: id, soft_delete: false },
     });
 
-    if (hotel) {
-      await hotel.update(body);
+    if (extra) {
+      await extra.update(body);
       res.json({
-        msg: "El hotel fue actualizado con exito",
+        msg: "El extra fue actualizado con exito",
       });
     } else {
       res.status(404).json({
-        msg: `No existe un hotel con el id ${id}`,
+        msg: `No existe un extra con el id ${id}`,
       });
     }
   } catch (error) {
@@ -87,18 +87,18 @@ export const update = async (req: Request, res: Response) => {
 
 export const softDelete = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const hotel = await Hotel.findOne({
+  const extra = await Extra.findOne({
     where: { id: id, soft_delete: false },
   });
 
-  if (!hotel) {
+  if (!extra) {
     res.status(404).json({
-      msg: `No existe un hotel con el id ${id}`,
+      msg: `No existe un extra con el id ${id}`,
     });
   } else {
-    await hotel.update({ soft_delete: true });
+    await extra.update({ soft_delete: true });
     res.json({
-      msg: "El hotel fue eliminado con exito!",
+      msg: "El extra fue eliminado con exito!",
     });
   }
 };
