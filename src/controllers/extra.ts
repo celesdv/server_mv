@@ -45,11 +45,9 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    await Extra.create(body);
+    const extra = await Extra.create(body);
 
-    res.json({
-      msg: `El extra fue agregado con exito!`,
-    });
+    res.json(extra);
   } catch (error) {
     console.log(error);
     res.status(500).json({

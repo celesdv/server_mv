@@ -45,11 +45,9 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    await Hotel.create(body);
+    const hotel = await Hotel.create(body);
 
-    res.json({
-      msg: `El hotel fue agregado con exito!`,
-    });
+    res.json(hotel);
   } catch (error) {
     console.log(error);
     res.status(500).json({

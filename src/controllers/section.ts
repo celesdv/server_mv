@@ -45,11 +45,9 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    await Section.create(body);
+    const section = await Section.create(body);
 
-    res.json({
-      msg: `El tramo fue agregado con exito!`,
-    });
+    res.json(section);
   } catch (error) {
     console.log(error);
     res.status(500).json({
