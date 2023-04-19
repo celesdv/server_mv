@@ -18,6 +18,8 @@ import itemRouter from "../routes/item";
 import accommodationRouter from "../routes/accommodation"
 import hotelRouter from "../routes/hotel"
 import extraRouter from "../routes/extra"
+import bookingRouter from "../routes/booking"
+import paxRouter from "../routes/pax"
 
 import {
   createAdmin,
@@ -84,6 +86,8 @@ class Server {
     this.app.use("/api/excursions", excursionRouter);
     this.app.use("/api/canneds", cannedRouter);
     this.app.use("/api/items", itemRouter);
+    this.app.use("/api/bookings", bookingRouter);
+    this.app.use("/api/paxes", paxRouter);
   }
 
   middleware() {
