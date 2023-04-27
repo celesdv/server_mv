@@ -116,8 +116,8 @@ class Server {
       await Hotel.sync();
       await Extra.sync();
       await Transfer.sync();
-      await Booking.sync();
-      await Pax.sync();
+      await Booking.sync({alter:true});
+      await Pax.sync({alter:true});
       await Income.sync();
       await Outcome.sync();
 

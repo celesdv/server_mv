@@ -1,6 +1,5 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
-import { Booking } from "./booking";
 
 export const Pax = sequelize.define("pax", {
   id: {
@@ -23,10 +22,5 @@ export const Pax = sequelize.define("pax", {
   soft_delete: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
-  },
-});
-Pax.belongsTo(Booking, {
-  foreignKey: {
-    allowNull: false,
   },
 });

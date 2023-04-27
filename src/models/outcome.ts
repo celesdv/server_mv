@@ -15,6 +15,11 @@ export const Outcome = sequelize.define("outcome", {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
+  total_usd: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
+  date: DataTypes.DATE,
   detail: DataTypes.STRING,
   soft_delete: {
     type: DataTypes.BOOLEAN,

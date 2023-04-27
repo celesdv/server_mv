@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Booking } from "../models/booking";
+import { Pax } from "../models/pax";
 
 export const getBookings = async (req: Request, res: Response) => {
   const listBookings = await Booking.findAll({
@@ -29,7 +30,9 @@ export const create = async (req: Request, res: Response) => {
   const { body } = req;
 
   try {
-    const booking = await Booking.create(body);
+    const booking = await Booking.create(body, {
+      include: [Pax],
+    });
 
     res.json(booking);
   } catch (error) {

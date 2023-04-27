@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
 import { Budget } from "./budget";
 import { Client } from "./client";
+import { Pax } from "./pax";
 
 export const Booking = sequelize.define("booking", {
   id: {
@@ -30,3 +31,9 @@ Booking.belongsTo(Client, {
     allowNull: false,
   },
 });
+Booking.hasMany(Pax, {
+  foreignKey: {
+      allowNull: false,
+  },
+})
+
