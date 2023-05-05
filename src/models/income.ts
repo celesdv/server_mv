@@ -19,6 +19,7 @@ export const Income = sequelize.define("income", {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
+  currency: DataTypes.STRING,
   date: DataTypes.DATE,
   detail: DataTypes.STRING,
   soft_delete: {
@@ -28,7 +29,7 @@ export const Income = sequelize.define("income", {
 });
 Income.belongsTo(Booking, {
   foreignKey: {
-    allowNull: false,
+    allowNull: true,
   },
 });
 Income.belongsTo(User, {
@@ -43,7 +44,7 @@ Income.belongsTo(Count, {
 });
 Income.belongsTo(Client, {
   foreignKey: {
-    allowNull: false,
+    allowNull: true,
   },
 });
 

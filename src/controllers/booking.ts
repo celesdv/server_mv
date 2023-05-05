@@ -10,6 +10,29 @@ export const getBookings = async (req: Request, res: Response) => {
   res.json(listBookings);
 };
 
+export const getBookingsOnly = async (req: Request, res: Response) => {
+  const listBookings = await Booking.findAll({
+    where: { soft_delete: false }
+  });
+  res.json(listBookings);
+};
+
+export const getByClient = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const listBookings = await Booking.findAll({
+    where: { idClient: id, soft_delete: false },
+    include: { all: true },
+  });
+  
+  if (listBookings) {
+    res.json(listBookings);
+  } else {
+    res.status(404).json({
+      msg: `No existe una reserva en el cliente con id ${id}`,
+    });
+  }
+};
+
 export const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
   const booking = await Booking.findOne({

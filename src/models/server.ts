@@ -20,6 +20,8 @@ import hotelRouter from "../routes/hotel"
 import extraRouter from "../routes/extra"
 import bookingRouter from "../routes/booking"
 import paxRouter from "../routes/pax"
+import incomeRouter from "../routes/income"
+import outcomeRouter from "../routes/outcome"
 
 import {
   createAdmin,
@@ -88,6 +90,8 @@ class Server {
     this.app.use("/api/items", itemRouter);
     this.app.use("/api/bookings", bookingRouter);
     this.app.use("/api/paxes", paxRouter);
+    this.app.use("/api/incomes", incomeRouter);
+    this.app.use("/api/outcomes", outcomeRouter);
   }
 
   middleware() {
@@ -116,8 +120,8 @@ class Server {
       await Hotel.sync();
       await Extra.sync();
       await Transfer.sync();
-      await Booking.sync({alter:true});
-      await Pax.sync({alter:true});
+      await Booking.sync();
+      await Pax.sync();
       await Income.sync();
       await Outcome.sync();
 

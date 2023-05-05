@@ -19,6 +19,7 @@ export const Outcome = sequelize.define("outcome", {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
+  currency: DataTypes.STRING,
   date: DataTypes.DATE,
   detail: DataTypes.STRING,
   soft_delete: {
@@ -28,7 +29,7 @@ export const Outcome = sequelize.define("outcome", {
 });
 Outcome.belongsTo(Booking, {
   foreignKey: {
-    allowNull: false,
+    allowNull: true,
   },
 });
 Outcome.belongsTo(User, {

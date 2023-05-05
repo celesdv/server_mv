@@ -13,6 +13,8 @@ export const Count = sequelize.define("count", {
   },
   alias: DataTypes.STRING,
   cbu: DataTypes.STRING,
+  tax_income: DataTypes.DOUBLE,
+  tax_outcome: DataTypes.DOUBLE,
   detail: DataTypes.STRING,
   soft_delete: {
     type: DataTypes.BOOLEAN,

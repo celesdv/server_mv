@@ -14,6 +14,10 @@ export const Booking = sequelize.define("booking", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  total: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
   travel_date: DataTypes.DATE,
   detail: DataTypes.STRING,
   soft_delete: {
@@ -33,7 +37,6 @@ Booking.belongsTo(Client, {
 });
 Booking.hasMany(Pax, {
   foreignKey: {
-      allowNull: false,
+    allowNull: false,
   },
-})
-
+});
