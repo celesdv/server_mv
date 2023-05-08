@@ -20,7 +20,7 @@ export const getBookingsOnly = async (req: Request, res: Response) => {
 export const getByClient = async (req: Request, res: Response) => {
   const { id } = req.params;
   const listBookings = await Booking.findAll({
-    where: { idClient: id, soft_delete: false },
+    where: { clientId: id, soft_delete: false },
     include: { all: true },
   });
   
