@@ -38,6 +38,7 @@ export const getByBooking = async (req: Request, res: Response) => {
   console.log(id)
   const listIncomes = await Income.findAll({
     where: { bookingId: id, soft_delete: false },
+    include: { all: true },
   });
 
   if (listIncomes) {

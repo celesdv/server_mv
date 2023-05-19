@@ -33,6 +33,22 @@ export const getByClient = async (req: Request, res: Response) => {
   }
 };
 
+export const getBySupplier = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const listBookings = await Booking.findAll({
+    where: { supplierId: id, soft_delete: false },
+    include: { all: true },
+  });
+  
+  if (listBookings) {
+    res.json(listBookings);
+  } else {
+    res.status(404).json({
+      msg: `No existe una reserva en el proveedor con id ${id}`,
+    });
+  }
+};
+
 export const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
   const booking = await Booking.findOne({

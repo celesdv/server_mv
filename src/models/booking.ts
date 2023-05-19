@@ -3,6 +3,7 @@ import sequelize from "../db/connection";
 import { Budget } from "./budget";
 import { Client } from "./client";
 import { Pax } from "./pax";
+import { Supplier } from "./supplier";
 
 export const Booking = sequelize.define("booking", {
   id: {
@@ -38,5 +39,10 @@ Booking.belongsTo(Client, {
 Booking.hasMany(Pax, {
   foreignKey: {
     allowNull: false,
+  },
+});
+Booking.belongsTo(Supplier, {
+  foreignKey: {
+    allowNull: true,
   },
 });

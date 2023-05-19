@@ -120,7 +120,7 @@ class Server {
       await Hotel.sync();
       await Extra.sync();
       await Transfer.sync();
-      await Booking.sync();
+      await Booking.sync({alter:true});
       await Pax.sync();
       await Income.sync();
       await Outcome.sync();

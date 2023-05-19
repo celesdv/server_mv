@@ -85,3 +85,21 @@ export const softDelete = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const isBudget = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const order = await Order.findOne({
+    where: { id: id, soft_delete: false },
+  });
+
+  if (!order) {
+    res.status(404).json({
+      msg: `No existe un pedido con el id ${id}`,
+    });
+  } else {
+    await order.update({ is_budget: true });
+    res.json({
+      msg: "El pedido fue presupuestado con exito!",
+    });
+  }
+};
