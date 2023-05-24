@@ -37,20 +37,29 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const updatePassword = async (req: Request, res: Response) => {
-  const { password } = req.body;
-  const { id } = req.params;
+  const { password, oldPassword } = req.body;
+  const { id } = req.params;  
   const encripted = await bcrypt.hash(password, 10);
 
   try {
-    const user = await User.findOne({
+    const user: any = await User.findOne({
       where: { id: id, soft_delete: false },
     });
 
     if (user) {
-      await user.update({ password: encripted });
-      res.json({
-        msg: "La contraseña fue actualizado con exito",
-      });
+
+      const validPass = await bcrypt.compare(oldPassword, user.password);
+
+      if (validPass) {         
+        await user.update({ password: encripted });
+        res.json({
+          msg: "La contraseña fue actualizado con exito",
+        });
+      } else {
+        res.status(404).json({
+          msg: `La contraseña anterior es incorrecta`,
+        });
+      }
     } else {
       res.status(404).json({
         msg: `No existe un usuario con el id ${id}`,
