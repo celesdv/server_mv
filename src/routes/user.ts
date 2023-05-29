@@ -12,6 +12,6 @@ router.post("/", [validateToken, isAdmin], create);
 router.delete("/:id", [validateToken, isAdmin], softDelete);
 router.put("/:id", [validateToken, isAdmin], update);
 
-router.put("/password/:id", validateToken, updatePassword);
+router.put("/:id/password", validateToken, updatePassword);
 
 export default router;
